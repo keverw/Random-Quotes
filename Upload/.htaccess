@@ -1,0 +1,31 @@
+# Pound sign comments a line out
+
+# Disallow viewing of htaccess files
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</IfModule>
+php_flag magic_quotes_gpc Off
+
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^enyo\.biz$
+RewriteRule (.*) http://www.randomquotes.com/$1 [R=301,L]
+
+# enable hiding php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php 
+
+#cleanurls
+RewriteRule ^q/([^/]+)/?$ /index.php?qid=$1 [L] # /comment id
+RewriteRule ^q/([^/]+)/([^/]+)/([^/]+)/?$ /index.php?qid=$1 [L] #/id/author/part of text
+RewriteRule ^q/([^/]+)/([^/]+)/?$ /index.php?qid=$1 [L] #/id/part of text
+
+# error pages
+ErrorDocument 404 /404.php
