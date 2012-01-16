@@ -14,7 +14,56 @@ if ($isAdmin)
 {
 	if ($_GET['do'] == 'edit')
 	{
-		
+		$qid = mysql_real_escape_string($_POST['qid']);
+		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
+		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
+		{
+			$row = mysql_fetch_array($checkalreadySQL);
+			?>
+				<table width="100%">
+		<tr>
+		<td align="center">
+				<table>
+				<tr>
+				<td><strong>"<?=htmlentities($row['text'])?>"</strong>	
+				</td>
+				</tr>
+				<tr>
+				<td>Author:<b><?=htmlentities($row['author'])?></b></td>
+				</tr>
+				<tr>
+				<td>Submitted: <b><?=date("M j Y g:i A T", $row['time'])?></b></td>
+				</tr>
+				<tr>
+				<td>
+				
+				<form style="display: inline;" action="/admin?do=save" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Save" class="blue" />
+				</form>
+				<form style="display: inline;" action="/admin?do=unapprove" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Unapprove" />
+				</form>
+				<form style="display: inline;" action="/admin?do=delete" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Delete" class="red" />
+				</form>
+				
+				</td>
+				</tr>
+				</table>
+				</td>
+		</tr>
+		</table>
+				<hr />
+			<?php
+		}
+		else
+		{
+			$_SESSION['notfound'] = 1;
+			header('location: admin');
+		}
 	}
 	else if ($_GET['do'] == 'approve')
 	{
