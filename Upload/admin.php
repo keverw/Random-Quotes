@@ -14,22 +14,60 @@ if ($isAdmin)
 {
 	if ($_GET['do'] == 'edit')
 	{
-	   
+		
 	}
-    else if ($_GET['do'] == 'aprove')
+	else if ($_GET['do'] == 'aprove')
 	{
-	   
-    }
-    else if ($_GET['do'] == 'unaprove')
+		$qid = mysql_real_escape_string($_POST['qid']);
+		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
+		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
+		{
+			
+		}
+		else
+		{
+			$_SESSION['notfound'] = 1;
+			header('location: admin');
+		}
+	}
+	else if ($_GET['do'] == 'unaprove')
 	{
-	   
-    }
-    else if ($_GET['do'] == 'delete')
+		$qid = mysql_real_escape_string($_POST['qid']);
+		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
+		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
+		{
+			
+		}
+		else
+		{
+			$_SESSION['notfound'] = 1;
+			header('location: admin');
+		}
+	}
+	else if ($_GET['do'] == 'delete')
 	{
-	   
-    }
+		$qid = mysql_real_escape_string($_POST['qid']);
+		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
+		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
+		{
+			
+		}
+		else
+		{
+			$_SESSION['notfound'] = 1;
+			header('location: admin');
+		}
+	}
 	else
 	{
+		//Error messages
+		
+		if ($_SESSION['notfound'])
+		{
+			$jsAlert = 'Quote not found!';
+			$_SESSION['notfound'] = 0;
+		}
+		//Stats
 		$pending_sql = mysql_query('SELECT COUNT(*) AS num FROM quotes WHERE approved = 0');
 		$pending_row = mysql_fetch_assoc($pending_sql);
 		$pending = $pending_row['num'];
@@ -74,21 +112,21 @@ if ($isAdmin)
 				</tr>
 				<tr>
 				<td>
-                
-                <form style="display: inline;" action="/admin?do=aprove" method="post">
-                    <input type="hidden" name="qid" value="<?=$row['id']?>"/>
-                    <input type="submit" value="Approve" class="blue" />
-                </form>
-                <form style="display: inline;" action="/admin?do=edit" method="post">
-                    <input type="hidden" name="qid" value="<?=$row['id']?>"/>
-                    <input type="submit" value="edit"/>
-                </form>
-                <form style="display: inline;" action="/admin?do=delete" method="post">
-                    <input type="hidden" name="qid" value="<?=$row['id']?>"/>
-                    <input type="submit" value="Delete" class="red" />
-                </form>
-                
-                </td>
+				
+				<form style="display: inline;" action="/admin?do=aprove" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Approve" class="blue" />
+				</form>
+				<form style="display: inline;" action="/admin?do=edit" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="edit"/>
+				</form>
+				<form style="display: inline;" action="/admin?do=delete" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Delete" class="red" />
+				</form>
+				
+				</td>
 				</tr>
 				</table>
 				<hr />
