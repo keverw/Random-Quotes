@@ -16,7 +16,7 @@ if ($isAdmin)
 	{
 		
 	}
-	else if ($_GET['do'] == 'aprove')
+	else if ($_GET['do'] == 'approve')
 	{
 		$qid = mysql_real_escape_string($_POST['qid']);
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
@@ -30,7 +30,7 @@ if ($isAdmin)
 			header('location: admin');
 		}
 	}
-	else if ($_GET['do'] == 'unaprove')
+	else if ($_GET['do'] == 'unapprove')
 	{
 		$qid = mysql_real_escape_string($_POST['qid']);
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
@@ -113,7 +113,7 @@ if ($isAdmin)
 				<tr>
 				<td>
 				
-				<form style="display: inline;" action="/admin?do=aprove" method="post">
+				<form style="display: inline;" action="/admin?do=approve" method="post">
 				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
 				<input type="submit" value="Approve" class="blue" />
 				</form>
@@ -135,7 +135,7 @@ if ($isAdmin)
 		}
 		else
 		{
-			echo '<b>ALL APROVED!</b>';
+			echo '<b>ALL approveD!</b>';
 		}
 		?>
 		</td>
