@@ -385,7 +385,7 @@ body {
 #header_top li:hover {
   text-decoration: underline;
 }
-#header_search_box {
+.header_search_box {
   height: 22px;
   width: 190px;
 }

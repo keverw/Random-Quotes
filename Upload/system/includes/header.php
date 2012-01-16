@@ -45,7 +45,7 @@
 					?>
 						<div id="header_bottom">
 							<form action="/search">
-								<input type="text" name="q" id="header_search_box" placeholder="Search..." />
+								<input type="text" name="q" class="header_search_box" placeholder="Search..." />
 								<input type="submit" value="Search" />
 							</form>
 						</div>
