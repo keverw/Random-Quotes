@@ -23,24 +23,24 @@ if ($isAdmin)
 		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
 		{
 			$row = mysql_fetch_array($checkalreadySQL);
-            if ($row['approved'] == 0)
+			if ($row['approved'] == 0)
 			{
-			     if (mysql_query("UPDATE quotes SET approved = 1 WHERE id = $qid"))
-                 {
-                    $_SESSION['wasapproved'] = 1;
-                    header('location: admin');
-                 }
-                 else
-                 {
-                    $_SESSION['databasewriteerror'] = 1;
-                    header('location: admin');
-                 }
-            }
-            else
-            {
-                $_SESSION['approvedalready'] = 1;
-                header('location: admin');
-            }
+				if (mysql_query("UPDATE quotes SET approved = 1 WHERE id = $qid"))
+				{
+					$_SESSION['wasapproved'] = 1;
+					header('location: admin');
+				}
+				else
+				{
+					$_SESSION['databasewriteerror'] = 1;
+					header('location: admin');
+				}
+			}
+			else
+			{
+				$_SESSION['approvedalready'] = 1;
+				header('location: admin');
+			}
 		}
 		else
 		{
@@ -54,7 +54,7 @@ if ($isAdmin)
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
 		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
 		{
-		  
+			
 		}
 		else
 		{
@@ -68,7 +68,16 @@ if ($isAdmin)
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
 		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
 		{
-			
+			if (mysql_query("DELETE FROM quotes WHERE id = $qid"))
+			{
+				$_SESSION['wasdeleted'] = 1;
+				header('location: admin');
+			}
+			else
+			{
+				$_SESSION['databasewriteerror'] = 1;
+				header('location: admin');
+			}
 		}
 		else
 		{
@@ -85,25 +94,31 @@ if ($isAdmin)
 			$jsAlert = 'Quote not found!';
 			$_SESSION['notfound'] = 0;
 		}
-        
-        if ($_SESSION['approvedalready'])
+		
+		if ($_SESSION['approvedalready'])
 		{
 			$jsAlert = 'Quote was already approved!';
 			$_SESSION['approvedalready'] = 0;
 		}
-        
-        if ($_SESSION['databasewriteerror'])
+		
+		if ($_SESSION['databasewriteerror'])
 		{
 			$jsAlert = 'Error writing to database!';
 			$_SESSION['databasewriteerror'] = 0;
 		}
-        
-        if ($_SESSION['wasapproved'])
+		
+		if ($_SESSION['wasapproved'])
 		{
 			$jsAlert = 'Quote was approved!';
 			$_SESSION['wasapproved'] = 0;
 		}
-        
+		
+		if ($_SESSION['wasdeleted'])
+		{
+			$jsAlert = 'Quote was deleted!';
+			$_SESSION['wasdeleted'] = 0;
+		}
+		
 		//Stats
 		$pending_sql = mysql_query('SELECT COUNT(*) AS num FROM quotes WHERE approved = 0');
 		$pending_row = mysql_fetch_assoc($pending_sql);
@@ -172,7 +187,7 @@ if ($isAdmin)
 		}
 		else
 		{
-			echo '<b>ALL approveD!</b>';
+			echo '<b>All Approved! Great Job!</b>';
 		}
 		?>
 		</td>
