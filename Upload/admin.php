@@ -14,7 +14,20 @@ if ($isAdmin)
 {
 	if ($_GET['do'] == 'edit')
 	{
-		$qid = mysql_real_escape_string($_POST['qid']);
+		if ($_POST['qid'])
+		{
+			$qid = mysql_real_escape_string($_POST['qid']);
+		}
+		else if ($_SESSION['edit_id'])
+		{
+			$qid = mysql_real_escape_string($_SESSION['edit_id']);
+			$_SESSION['edit_id'] = 0;
+		}
+		else
+		{
+			$qid = 0;
+		}
+		
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
 		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
 		{
@@ -153,6 +166,9 @@ if ($isAdmin)
 	}
 	else if ($_GET['do'] == 'save')
 	{
+		$qid = mysql_real_escape_string($_POST['qid']);
+		$_SESSION['edit_id'] = $qid;
+		header('location: admin?do=edit');
 	}
 	else
 	{
