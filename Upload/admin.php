@@ -23,21 +23,20 @@ if ($isAdmin)
 				<table width="100%">
 		<tr>
 		<td align="center">
+			<form style="display: inline;" action="/admin?do=save" method="post">
 				<table>
 				<tr>
-				<td><strong>"<?=htmlentities($row['text'])?>"</strong>	
+				<td><textarea name="text" id="text_input" placeholder="Quotes text here" style="width: 256px;  height: 64px;  resize: none;margin-top: 20px;"><?=$row['text']?></textarea>	
 				</td>
 				</tr>
 				<tr>
-				<td>Author:<b><?=htmlentities($row['author'])?></b></td>
+				<td><b>Author: </b><input type="text" name="author" id="author_input" placeholder="Author name here" value="<?=$row['author']?>" style="width: 208px;" /></td>
 				</tr>
 				<tr>
 				<td>Submitted: <b><?=date("M j Y g:i A T", $row['time'])?></b></td>
 				</tr>
 				<tr>
 				<td>
-				
-				<form style="display: inline;" action="/admin?do=save" method="post">
 				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
 				<input type="submit" value="Save" class="blue" />
 				</form>
@@ -152,10 +151,12 @@ if ($isAdmin)
 			header('location: admin');
 		}
 	}
+	else if ($_GET['do'] == 'save')
+	{
+	}
 	else
 	{
 		//Error and wining messages
-		
 		if ($_SESSION['notfound'])
 		{
 			$jsAlert = 'Quote not found!';
@@ -232,7 +233,7 @@ if ($isAdmin)
 				?>
 				<table>
 				<tr>
-				<td><strong>"<?=htmlentities($row['text'])?>"</strong>	
+				<td><b>"<?=htmlentities($row['text'])?>"</b>	
 				</td>
 				</tr>
 				<tr>
