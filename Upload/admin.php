@@ -103,7 +103,25 @@ if ($isAdmin)
 		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
 		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
 		{
-			
+			$row = mysql_fetch_array($checkalreadySQL);
+			if ($row['approved'] == 1)
+			{
+				if (mysql_query("UPDATE quotes SET approved = 0 WHERE id = $qid"))
+				{
+					$_SESSION['wasunapproved'] = 1;
+					header('location: admin');
+				}
+				else
+				{
+					$_SESSION['databasewriteerror'] = 1;
+					header('location: admin');
+				}
+			}
+			else
+			{
+				$_SESSION['unapprovedalready'] = 1;
+				header('location: admin');
+			}
 		}
 		else
 		{
@@ -148,6 +166,18 @@ if ($isAdmin)
 		{
 			$jsAlert = 'Quote was already approved!';
 			$_SESSION['approvedalready'] = 0;
+		}
+		
+		if ($_SESSION['unapprovedalready'])
+		{
+			$jsAlert = 'Quote was already unapproved!';
+			$_SESSION['unapprovedalready'] = 0;
+		}
+
+		if ($_SESSION['wasunapproved'])
+		{
+			$jsAlert = 'Quote was unapproved!';
+			$_SESSION['wasunapproved'] = 0;
 		}
 		
 		if ($_SESSION['databasewriteerror'])
