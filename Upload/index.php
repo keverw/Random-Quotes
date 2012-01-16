@@ -103,6 +103,9 @@ if (!$nonefound)
 				</div>
 			</div>
 		</div>
+		<div id="quote_buttons" align="center">
+			<input type="button" value="Show me a random quotes" onClick="window.location.href=window.location.href">
+		</div>
 	<?php
 }
 
