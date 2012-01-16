@@ -17,6 +17,7 @@ if ($_GET['q'] != '')
 	</td>
 	</tr>
 	<tr>
+	<td>
 	<?php
 	$SQL_search = mysql_query("SELECT * 
 FROM quotes 
@@ -67,6 +68,7 @@ LIMIT 15");
 		<?php
 	}
 	?>
+	</td>
 	</tr>
 	</table>
 	<?php
@@ -75,7 +77,7 @@ else
 {
 	?>
 	<div align="center">
-	<h1>Search</h1>
+	<h2>Search</h2>
 	<form method="get" action="/search"> 
 	<input name="q" size="30" type="text" class="header_search_box"> 
 	<input value="Search" type="submit">
