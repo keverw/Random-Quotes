@@ -561,6 +561,12 @@ body {
   margin-left: 8px;
   margin-right: 8px;
 }
+
+#quote_buttons{
+margin-bottom: 20px;
+margin-top: 10px;
+}
+
 #footer {
   line-height: 7px;
   font-size: 11px;
