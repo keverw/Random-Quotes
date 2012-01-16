@@ -1,3 +1,6 @@
+Random Quotes Script version 1.0
+https://github.com/keverw/Random-Quotes
+
 A simple random quote PHP and MySQL script! The script is under a modified BSD License. Please read LICENSE.txt for more details.
 
 
@@ -11,5 +14,3 @@ password: sexybabe
 Please change the password by making a new MD5 version. Then update it with phpMyAdmin! createpass.php should help or use your *nix command line.
 
 Just putting this out there. Feel free to fork/edit/improve. If you make any cool changes, maybe even they could be merged in to this "Official version".
-
-The script is under a modified 
