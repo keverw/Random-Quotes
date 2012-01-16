@@ -167,8 +167,27 @@ if ($isAdmin)
 	else if ($_GET['do'] == 'save')
 	{
 		$qid = mysql_real_escape_string($_POST['qid']);
-		$_SESSION['edit_id'] = $qid;
-		header('location: admin?do=edit');
+		$checkalreadySQL = mysql_query("SELECT * FROM quotes WHERE id = $qid");
+		if(mysql_num_rows($checkalreadySQL) > 0) //already in database
+		{
+				$author_name = mysql_real_escape_string(strip_tags($_POST['author']));
+				$quote_text = mysql_real_escape_string(strip_tags($_POST['text']));
+				if (mysql_query("UPDATE quotes SET text = '$quote_text', author = '$author_name' WHERE id = $qid"))
+				{
+					$_SESSION['edit_id'] = $qid;
+					header('location: admin?do=edit');
+				}
+				else
+				{
+					$_SESSION['databasewriteerror'] = 1;
+					header('location: admin');
+				}
+		}
+		else
+		{
+			$_SESSION['notfound'] = 1;
+			header('location: admin');
+		}
 	}
 	else
 	{
