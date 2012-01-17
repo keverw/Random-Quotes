@@ -53,10 +53,26 @@ if ($isAdmin)
 				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
 				<input type="submit" value="Save" class="blue" />
 				</form>
+				<?php
+				if ($row['approved'])
+				{
+				?>
 				<form style="display: inline;" action="/admin?do=unapprove" method="post">
 				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
 				<input type="submit" value="Unapprove" />
 				</form>
+				<?php
+				}
+				else
+				{
+				?>
+				<form style="display: inline;" action="/admin?do=approve" method="post">
+				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
+				<input type="submit" value="Approve"/>
+				</form>
+				<?php
+				}
+				?>
 				<form style="display: inline;" action="/admin?do=delete" method="post">
 				<input type="hidden" name="qid" value="<?=$row['id']?>"/>
 				<input type="submit" value="Delete" class="red" />
