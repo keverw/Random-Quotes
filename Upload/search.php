@@ -1,8 +1,8 @@
 <?php
 ob_start();
-require $_SERVER['DOCUMENT_ROOT'] . '/system/start.php';
+require 'system/start.php';
 $pageTitle = 'Search';
-require $_SERVER['DOCUMENT_ROOT'] . '/system/includes/header.php';
+require 'system/includes/header.php';
 if ($_GET['q'] != '')
 {
 	$searchTermbox = (isset($_GET['q'])) ? htmlspecialchars($_GET['q'], ENT_QUOTES) : '';
@@ -85,6 +85,6 @@ else
 	</div>
 	<?php
 }
-require $_SERVER['DOCUMENT_ROOT'] . '/system/includes/footer.php';
+require 'system/includes/footer.php';
 ob_end_flush();
 ?>

@@ -1,8 +1,8 @@
 <?php
 ob_start();
-require $_SERVER['DOCUMENT_ROOT'] . '/system/start.php';
+require 'system/start.php';
 $pageTitle = 'Submit Quote';
-require $_SERVER['DOCUMENT_ROOT'] . '/system/includes/header.php';
+require 'system/includes/header.php';
 if ($_GET['submitted'] == 1 && $_GET['qid'])
 {
 	$qid = mysql_real_escape_string($_GET['qid']);
@@ -103,6 +103,6 @@ else
 	</form>
 	<?php
 }
-require $_SERVER['DOCUMENT_ROOT'] . '/system/includes/footer.php';
+require 'system/includes/footer.php';
 ob_end_flush();
 ?>

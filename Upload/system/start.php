@@ -2,7 +2,7 @@
 session_start();
 mb_language('uni');
 mb_internal_encoding('UTF-8');
-require $_SERVER['DOCUMENT_ROOT'] . '/system/config.php';
+require 'config.php';
 
 function create_slug($string)
 {
