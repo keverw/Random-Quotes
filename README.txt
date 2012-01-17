@@ -1,4 +1,4 @@
-Random Quotes Script version 1.0
+Random Quotes Script version 1.0.1
 https://github.com/keverw/Random-Quotes
 
 A simple random quote PHP and MySQL script! The script is under a modified BSD License. Please read LICENSE.txt for more details.
